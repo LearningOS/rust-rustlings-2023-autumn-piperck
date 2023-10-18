@@ -16,10 +16,24 @@
 //
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+
+
+pub enum Grade {
+    Numeric(f32),
+    Alphabetic(String),
+}
+
+impl Grade {
+    fn display(&self) -> String {
+        match self {
+            Grade::Numeric(n) => n.to_string(),
+            Grade::Alphabetic(s) => s.clone(),
+        }
+    }
+}
 
 pub struct ReportCard {
-    pub grade: f32,
+    pub grade: Grade,
     pub student_name: String,
     pub student_age: u8,
 }
@@ -27,7 +41,7 @@ pub struct ReportCard {
 impl ReportCard {
     pub fn print(&self) -> String {
         format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+            &self.student_name, &self.student_age, &self.grade.display())
     }
 }
 
@@ -38,7 +52,7 @@ mod tests {
     #[test]
     fn generate_numeric_report_card() {
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: Grade::Numeric(2.1),
             student_name: "Tom Wriggle".to_string(),
             student_age: 12,
         };
@@ -52,7 +66,7 @@ mod tests {
     fn generate_alphabetic_report_card() {
         // TODO: Make sure to change the grade here after you finish the exercise.
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: Grade::Alphabetic("A+".to_string()),
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };
